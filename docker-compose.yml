@@ -1,0 +1,29 @@
+db:
+  image: postgres
+
+app: &default
+  build: .
+  dockerfile: Dockerfile.app
+  command: bundle exec rails s -p 3000 -b '0.0.0.0'
+  volumes:
+    - ./weaveup:/weaveup
+  expose:
+    - "3000"
+  links:
+    - db
+
+job:
+  <<: *default
+  command: bin/delayed_job --queues=tasks,print -i0 run
+  ports: []
+
+web: 
+  build: .
+  dockerfile: Dockerfile.web
+  command: gulp build --env local
+  volumes:
+    - ./weaveup_front_end:/weaveup_front_end
+  ports:
+    - "80:80"
+  links:
+    - app
