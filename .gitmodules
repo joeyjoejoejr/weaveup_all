@@ -1,0 +1,6 @@
+[submodule "weaveup"]
+	path = weaveup
+	url = http://github.com/smashingboxes/weaveup
+[submodule "weaveup_web_frontend"]
+	path = weaveup_web_frontend
+	url = http://github.com/smashingboxes/weaveup_web_frontend
