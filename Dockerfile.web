@@ -1,0 +1,21 @@
+FROM node:0.12
+
+RUN mkdir /weaveup_web_frontend
+WORKDIR /weaveup_web_frontend
+
+RUN npm install -g coffee-script
+RUN npm install -g gulp
+RUN npm install -g bower
+
+# Add SSH Key
+ADD $HOME/.ssh/id_rsa /root/.ssh/id_rsa
+RUN ssh-keyscan -t rsa,dsa github.com >> /root/.ssh/known_hosts
+
+ADD weaveup_web_frontend/package.json /weaveup_web_frontend/
+ADD weaveup_web_frontend/bower.json /weaveup_web_frontend/
+RUN npm install
+RUN bower install --allow-root
+
+RUN rm /root/.ssh/id_rsa
+
+ADD weaveup_web_frontend/ /weaveup_web_frontend
