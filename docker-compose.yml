@@ -15,15 +15,14 @@ app: &default
 job:
   <<: *default
   command: bin/delayed_job --queues=tasks,print -i0 run
-  ports: []
 
 web: 
   build: .
   dockerfile: Dockerfile.web
-  command: gulp build --env local
+  command: gulp serve --env local
   volumes:
-    - ./weaveup_front_end:/weaveup_front_end
+    - ./weaveup_web_frontend/:/weaveup_front_end
   ports:
-    - "80:80"
+    - "9000:9000"
   links:
     - app

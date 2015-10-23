@@ -8,8 +8,8 @@ RUN npm install -g gulp
 RUN npm install -g bower
 
 # Add SSH Key
-ADD $HOME/.ssh/id_rsa /root/.ssh/id_rsa
-RUN ssh-keyscan -t rsa,dsa github.com >> /root/.ssh/known_hosts
+ADD id_rsa /root/.ssh/id_rsa
+RUN ssh-keyscan -t rsa,dsa github.com >> ~/.ssh/known_hosts
 
 ADD weaveup_web_frontend/package.json /weaveup_web_frontend/
 ADD weaveup_web_frontend/bower.json /weaveup_web_frontend/
